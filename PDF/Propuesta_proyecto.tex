@@ -1,0 +1,376 @@
+\documentclass[twocolumn,twoside,11pt]{article}
+
+%\usepackage[spanish,activeacute]{babel}
+\usepackage[dvips]{epsfig}
+\usepackage{textcomp}
+\usepackage{anysize}
+\marginsize{2cm}{2cm}{1.5cm}{1.5cm}
+\newtheorem{theorem}{Teorema}
+\usepackage{listings}
+\lstset{language=Python} 
+
+\begin{document}
+
+\title{Herramienta para el an\'alisis de las prote\'inas que interact\'uan con LASP-1}
+
+\author{Ayrton Fabio Coronado Huam\'an,  Rodrigo Paz
+}
+
+
+
+
+
+\maketitle
+% Oculta las cabeceras y los n\'umeros de p\'agina.
+% Ambos elemetos se aÃ±adir\'an durante la edici\'on de las actas completas.
+\markboth{}{}
+\pagestyle{empty} 
+\thispagestyle{empty} % Oculta el n\'umero de la primera p\'agina
+\section{Abstract}
+
+The proposal for this project is to make a graphic interface that facilitates the analysis of the proteins interacting with LASP-1 and its association with different types of carcinomas, especially hepatocellular carcinoma related to HBV, in addition to
+Perform a phylogenetic analysis of LASP-1 that allows us to locate its evolutionary origin.
+To perform the respective analysis, what we will do is calculate descriptors of protein-protein interaction of LASP-1 with different proteins selected from a database.
+Then we will look for their respective orthologs with which it will help us to carry out a phylogenetic analysis of LASP-1 and observe the origin of this protein.
+
+\section{Resumen Ejecutivo}
+
+La propuesta para este proyecto es realizar una interfaz gr\'afica que facilite el an\'alisis de las prote\'inas interact\'uan con LASP-1 y su asociaci\'on con distintos tipos c\'arcinomas en especial el carcinoma hepatocelular relacionado con el VHB, adem\'as de
+realizar un \'analisi filogen\'etico del LASP-1 que nos permita ubicar su origen evolutivo.\\
+
+
+Para realizar el respectivo \'analisis lo que haremos es calcular descriptores de interacci\'on prote\'ina - prote\'ina de LASP-1 con distintas prote\'inas seleccionadas de una base de datos.\\
+
+Luego buscaremos su respectivos ort\'ologos con el que nos ayudar\'a a realizar un \'analisis filogen\'etico de LASP-1 y observar el origen de esta prote\'ina.\\
+
+
+
+
+\section{Descripci\'on del proyecto}
+Al realizar una investigaci\'on en distintas \'areas muchas veces el limitante  es el financiamiento,  para ayudar quitar costos hemos optado en este proyecto por crear un software que utiliza recursos gratuitos como librer\'ias de python para la parte bioinform\'atica en las que se incluir\'an : biopython, biopandas, PyBioMed y para el GUI utilizaremos Tkinter.\\
+Otro factor que puede ser limitante es el hardware disponibles, por lo que en lugar de descargar las bases de datos, realizaremos consultas a las base de datos en l\'inea mediante el programa.\\
+
+Las herramientas que ser\'an implementadas en el software (GUI) ser\'an: 
+\begin{itemize}
+ \item Alineamiento de secuencias. 
+ \item Alineamiento m\'ultiple de secuencias.
+ \item Algoritmos de b\'usqueda de secuencias similares en Base de datos.
+ \item C\'alculo de descriptores interacc\'ion.
+ \item An\'alisis filogen\'etico.
+\end{itemize}
+
+  
+Se incluir\'an distintos algoritmos de programaci\'on dinamica: como el alineamiento de secuencias usando una matriz BLOSUM62, Algoritmo Blast para la b\'usqueda de secuencias similares, Algoritmo CLUSTALW, Algoritmo para calcular descriptores de interacci\'on y Algoritmo UPGMA que se encuentran en las fuentes citadas en la bibliograf\'ia.  
+
+Se entregar\'an los avances de acuerdo al siguiente cronograma:\\
+
+\textbf{Entregable 1(Practica Calif N.2.:})
+\begin{itemize}
+\item Propuesta del Proyecto.\\
+\end{itemize}
+
+
+\textbf{Entregable 2(Práctica Calif N.3.):}
+\begin{itemize}
+\item Versi\'on final de la propuesta en PDF.
+\item Prote\'inas escogidas que interact\'uan con LASP-1.
+\item Avance del proyecto al 30\%.\\
+\end{itemize}
+
+\textbf{Entregable 3(Práctica Calif N.4.):}
+\begin{itemize}
+\item Implementaci\'on al 70\%.
+\item C\'alculo de descriptores de interacci\'on prote\'ina - prote\'ina con el software.\\
+
+\end{itemize}
+
+\textbf{Entregable 4 (Lab. Calif. N.4):}
+\begin{itemize}
+\item Implementaci\'on al 100\%. Incluye: C\'odigo fuente, Librer\'ias, datos de
+prueba, reporte final. (DVD o repositorio p\'ublico).
+\item An\'alisis y Generaci\'on de \'Arboles Filogen\'eticos.\\
+
+
+\end{itemize}
+
+Aporte personal de cada integrante:\\
+\begin{itemize}
+\item Fabio Coronado:
+      \begin{itemize}
+      \item An\'alisis de los datos.
+       \item An\'alisis filogen\'etico.
+       \item Algoritmos de b\'usqueda de secuencias similares en Base de datos.
+       \item C\'alculo de descriptores interacc\'ion.
+      \end{itemize}
+\item Rodrigo Paz:
+      \begin{itemize}
+      \item Implementaci\'on del GUI en Tkinter.
+      \item Algoritmos de b\'usqueda de secuencias similares en Base de datos.
+      \item Alineamiento m\'ultiple de secuencias.
+      \item Alineamiento de secuencias. 
+      \end{itemize}
+
+\end{itemize}
+
+
+
+\section{Algoritmos e Implementaci\'on Computacional}
+
+
+En el proyecto se implement\'ran distintos algoritmos que tienen un costo computacional adecuado para el an\'alisis de una gran cantidad de datos.\\
+
+Algunos algoritmos que usaremos:\\
+
+\textbf{Algoritmo para el alineamiento de secuencias(Needleman-Wunsch):}
+\footnotesize
+\begin{lstlisting}[frame=single]
+
+def needleman_Wunsch(seq1,seq2,sm,g):
+S = [[0]]
+T = [[0]]
+# initialize gaps row
+for j in range(1, len (seq2)+1):
+S[0].append(g * j)
+T[0].append(3)
+# initialize gaps column
+for i in range(1, len (seq1)+1):
+S.append([g * i])
+T.append([2])
+# apply the recurrence relation 
+#to fill the remaining of the
+#matrix
+for i in range(0, len (seq1)):
+for j in range( len (seq2)):
+
+s1=S[i][j]+score_pos(seq1[i],seq2[j],sm,g);
+s2 = S[i][j+1] + g
+s3 = S[i+1][j] + g
+S[i+1].append(max(s1, s2, s3))
+T[i+1].append(max3t(s1, s2, s3))
+return (S, T)
+def max3t (v1, v2, v3):
+if v1 > v2:
+if v1 > v3: return 1
+else : return 3
+else :
+if v2 > v3: return 2
+else : return 3
+
+\end{lstlisting}
+\normalsize
+
+\textbf{Algoritmo para obtener el alineamiento:} \\
+ \small
+\begin{lstlisting}[frame=single]
+def recover_align (T, seq1, seq2):
+res = ["", ""]
+i = len (seq1)
+j = len (seq2)
+while i>0 or j>0:
+i f T[i][j]==1:
+res[0] = seq1[i-1] + res[0]
+res[1] = seq2[j-1] + res[1]
+i -= 1
+j -= 1
+e l i f T[i][j] == 3:
+res[0] = "-" + res[0]
+res[1] = seq2[j-1] + res[1]
+j -= 1
+e l s e :
+res[0] = seq1[i-1] + res[0]
+res[1] = "-" + res[1]
+i -= 1
+return res
+
+\end{lstlisting}
+\normalsize
+\textbf{Alineamiento m\'ultiple de secuencias en Biopython:}
+\scriptsize
+\begin{lstlisting}[frame=single]
+from Bio import Alphabet
+from Bio.SeqRecord import SeqRecord
+from Bio.Align import MultipleSeqAlignment
+from Bio.Alphabet import IUPAC
+from Bio.Seq import Seq
+seq1="MHQAIFIYQIGYPLKSGYIQSIRSPEYDNW"
+seq2="MH--IFIYQIGYALKSGYIQSIRSPEY-NW"
+seq3="MHQAIFI-QIGYALKSGY-QSIRSPEYDNW"
+
+seqr1=SeqRecord(Seq(seq1,
+Alphabet.Gapped(IUPAC.protein)),id ="seq1")
+seqr2=SeqRecord(Seq(seq2,
+Alphabet.Gapped(IUPAC.protein)),id ="seq2")
+seqr3=SeqRecord(Seq(seq3,
+Alphabet.Gapped(IUPAC.protein)),id ="seq3")
+ 
+alin=MultipleSeqAlignment([seqr1, seqr2, seqr3])
+print(alin)
+
+#diferentes formas de imprimir:
+# 2nd sequence
+print (alin[1]) 
+# 3rd column
+print (alin[:,2]) 
+# 4th to 7th columns (all sequences)
+print (alin[:,3:7]) 
+# first 3 columns of seq1
+print (alin[0].seq[:3]) 
+# sequences 2 and 3; 4th to 10th column
+print (alin[1:3,5:12]) 
+
+\end{lstlisting}	
+\normalsize
+
+\textbf{Algoritmos para la b\'usqueda de secuencias similares:}\\
+\scriptsize
+\begin{lstlisting}[frame=single]
+def align_query (query, ls, sm, g):
+bestScore = -1
+bestSeq = None
+bestAl = None
+for seq in ls:
+al = smith_Waterman(query, seq, sm, g)
+i f al[2] > bestScore:
+bestScore = al[2]
+bestSeq = seq
+bestAl = al
+bestAlin = recover_align_local(bestAl[0], 
+bestAl[1], query, bestSeq)
+return bestAlin , bestScore
+\end{lstlisting}	
+\begin{lstlisting}[frame=single]
+def read_database (filename):
+f = open (filename)
+db = []
+for line in f:
+db.append(line.rstrip())
+f.close()
+return db
+\end{lstlisting}
+\begin{lstlisting}[frame=single]
+#query es la consulta
+def build_map (query, w):
+res = {}
+for i in range( len (query)-w+1):
+subseq = query[i:i+w]
+i f subseq in res:
+res[subseq].append(i)
+e l s e :
+res[subseq] = [i]
+return res
+\end{lstlisting}
+
+
+\begin{lstlisting}[frame=single]
+def extends_hit (seq, hit, query, w):
+stq, sts = hit[0], hit[1]
+## move forward
+matfw = 0
+k=0
+bestk = 0
+while 2*matfw >= k and 
+stq+w+k < len (query) and sts+w+k < len (seq):
+i f query[stq+w+k] == seq[sts+w+k]:
+matfw+=1
+bestk = k+1
+k += 1
+size = w + bestk
+## move backwards
+k = 0
+matbw = 0
+bestk = 0
+while 2*matbw >= k and stq > k and sts > k:
+i f query[stq-k-1] == seq[sts-k-1]:
+matbw+=1
+bestk = k+1
+k+=1
+size += bestk
+return (stq-bestk,sts-bestk,size,w+matfw+matbw)
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+def hit_best_score(seq, query, m, w):
+hits = get_hits(seq, m, w)
+bestScore = -1.0
+best = ()
+for h in hits:
+ext = extends_hit(seq, h, query, w)
+score = ext[3]
+i f score > bestScore or (score== bestScore
+ and ext[2] < best[2]):
+bestScore = score
+best = ext
+return best
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+#Retornando el mejor alineamiento
+def best_alignment (db, query, w):
+m = build_map(query, w)
+bestScore = -1.0
+res = (0,0,0,0,0)
+for k in range(0, len (db)):
+bestSeq = hit_best_score(db[k], query, m, w)
+i f bestSeq != ():
+score = bestSeq[3]
+i f score > bestScore or (score== bestScore
+ and bestSeq[2]< res[2]):
+bestScore = score
+res = bestSeq[0], bestSeq[1], bestSeq[2],
+ bestSeq[3],k
+if bestScore < 0: return ()
+else : return res
+\end{lstlisting}
+
+\normalsize
+\section{Resultados}
+\begin{itemize}
+	
+	\item  Esperamos encontrar las prote\'inas que interact\'uan con LASP-1.    
+    
+    \item Adem\'as esperamos demostrar con el \'arbol filogen\'etico el origen de LASP-1, ya sabemos de antemano que algunos an\'alisis indican que puede tener origen en la evoluci\'on de invertebrados a vertebrados.	
+    
+\end{itemize}
+
+\section{Conclusiones}
+
+\begin{itemize}
+\item En un futuro se podr\'ia implementar mas funcionalidades el software como: Modelamiento de proteinas con PyMol, Algoritmos ocultos de Markov, Motif Discovery, etc.
+\item Con el pasar del tiempo se descubren diferentes prote\'inas que interact\'uan con carcinomas, encontrar las prote\'inas correctas mejorar\'a el diagn\'ostico de los distintos tipos de c\'ancer.
+\item Al ser una herramienta que incluye librer\'ias libres permite ahorrar costos en la investigaci\'on.  
+
+\end{itemize}
+
+
+\begin{thebibliography}{X}
+	\bibitem{LaTeX}
+	Alan D. Moore.\\
+\newblock {\em  Python GUI Programming with Tkinter},
+\newblock May 2018
+
+    
+	\bibitem{LaTeX}
+	Miguel Rocha , Pedro G. Ferreira.\\
+\newblock {\em Bioinformatics Algorithms, Design and Implementation in Python},
+\newblock 2018
+	
+	
+	\bibitem{LaTeX}
+   Tiago Antao.\\
+\newblock {\em   Bioinformatics with Python Cookbook - Second Edition},
+\newblock 2018
+
+	\bibitem{LaTeX}
+   Zhi-Jiang Yao ,Jie Dong\\
+\newblock {\em   http://projects.scbdd.com/pybiomed.html},
+\newblock 2017
+
+	\bibitem{LaTeX}
+Fan-Yun Kong, Ting Zhu, Nan Li, Yun-Fei Cai, Kai Zhou, Xiao Wei, Yan-Bo Kou, Hong-Juan You, Kui-Yang Zheng y Ren-Xian Tang\\
+\newblock {\em   Bioinformatics analysis of the proteins interacting with LASP-1 and their association with HBV-related hepatocellular carcinoma},
+\newblock 2017
+	
+\end{thebibliography}
+
+
+\end{document}
