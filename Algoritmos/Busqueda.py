@@ -1,12 +1,14 @@
 #Busquedas mediante Entrez
 from Bio import Entrez 
 from Bio import SeqIO
-Entrez.email = "<acoronadoh@uni.pe>"
-Entrez.tool = "Biopython"
-info = Entrez.einfo()
-record = Entrez.read(info)
+
+def inicializacion(correo):
+    Entrez.email = "<"+correo+">"
+    Entrez.tool = "Biopython"
+#info = Entrez.einfo()
+#record = Entrez.read(info)
 #print(record['DbList']) #base de datos
-# nucleotide genome protein
+# bases de datos nucleotide  protein
 
 def Busqueda(basededatos, termino, tipo, maximo):
     resultados = Entrez.esearch(basededatos,termino,retmax = maximo)
@@ -48,14 +50,14 @@ def ObtenerSecuencia ( listado , posicion ,  guardar = "No" , nombrearchivo= Non
    print("-----------------------------------------------------------------------------")
    print("Retornado la secuencia escogida")
    return secuencia
-    
 
+#inicializacion
+inicializacion("acoronadoh@uni.pe")
 #Busqueda que retorna la descripcion fasta de los archivos
 resultados = Busqueda("protein","LASP1 Homo sapiens", "fasta", 10)
 
 
 #Obtener secuencia o guardar en formato fasta windows
 secuencia = ObtenerSecuencia(resultados,3,"Si","ejemplo","C:/Users/MenTaLisT/Desktop","fasta")
-#Obtener secuencia o guardar en formato fasta linux
-#secuencia = ObtenerSecuencia(resultados,3,"Si","ejemplo","direccion","fasta")
+
 print(secuencia)
