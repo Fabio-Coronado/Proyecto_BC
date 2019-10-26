@@ -1,66 +1,98 @@
-\documentclass[twocolumn,twoside,11pt]{article}
+\documentclass[twocolumn,twoside,12pt]{article}
 
 %\usepackage[spanish,activeacute]{babel}
-\usepackage[dvips]{epsfig}
+
+
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}  
 \usepackage{textcomp}
 \usepackage{anysize}
 \marginsize{2cm}{2cm}{1.5cm}{1.5cm}
 \newtheorem{theorem}{Teorema}
 \usepackage{listings}
 \lstset{language=Python} 
+\usepackage{graphicx}
+\usepackage{float}
+%\graphicspath{ {c:/Users/MenTaLisT/Repositorios/Proyecto_BC/PDF/imagenes} }
+\title{Herramienta para el an\'alisis de las prote\'inas que interact\'uan con LASP-1\\
+ \begin{large} 
+  Repositorio: \url{https://github.com/Fabio-Coronado/Proyecto_BC}
+\end{large}}
+\author{Fabio Coronado,  Rodrigo Paz }
 
 \begin{document}
 
-\title{Herramienta para el an\'alisis de las prote\'inas que interact\'uan con LASP-1}
-
-\author{Ayrton Fabio Coronado Huam\'an,  Rodrigo Paz
-}
-
-
-
-
-
 \maketitle
-% Oculta las cabeceras y los n\'umeros de p\'agina.
-% Ambos elemetos se aÃ±adir\'an durante la edici\'on de las actas completas.
-\markboth{}{}
-\pagestyle{empty} 
-\thispagestyle{empty} % Oculta el n\'umero de la primera p\'agina
-\section{Abstract}
 
-The proposal for this project is to make a graphic interface that facilitates the analysis of the proteins interacting with LASP-1 and its association with different types of carcinomas, especially hepatocellular carcinoma related to HBV, in addition to
-Perform a phylogenetic analysis of LASP-1 that allows us to locate its evolutionary origin.
-To perform the respective analysis, what we will do is calculate descriptors of protein-protein interaction of LASP-1 with different proteins selected from a database.
-Then we will look for their respective orthologs with which it will help us to carry out a phylogenetic analysis of LASP-1 and observe the origin of this protein.
 
+\begin{abstract}
+
+The proposal for this project is to carry out a graphic interface that facilitates the analysis of the proteins that interact with LASP-1 and its association with different types of carcinomas, especially hepatocellular carcinoma related to HBV, in addition to carrying out a phylogenetic analysis of these proteins that It will allow us to locate its evolutionary origin.
+
+For phylogenetic analysis we will look for their respective orthologs that will help us find the origin of these proteins.
+\end{abstract}
 \section{Resumen Ejecutivo}
 
-La propuesta para este proyecto es realizar una interfaz gr\'afica que facilite el an\'alisis de las prote\'inas interact\'uan con LASP-1 y su asociaci\'on con distintos tipos c\'arcinomas en especial el carcinoma hepatocelular relacionado con el VHB, adem\'as de
-realizar un \'analisi filogen\'etico del LASP-1 que nos permita ubicar su origen evolutivo.\\
+La propuesta para este proyecto es realizar una interfaz gr\'afica que facilite el an\'alisis de las prote\'inas que interact\'uan con LASP-1 y su asociaci\'on con distintos tipos c\'arcinomas en especial el carcinoma hepatocelular relacionado con el VHB, adem\'as de
+realizar un \'analisis filogen\'etico de estas prote\'inas que nos permitir\'a ubicar su origen evolutivo.
 
-
-Para realizar el respectivo \'analisis lo que haremos es calcular descriptores de interacci\'on prote\'ina - prote\'ina de LASP-1 con distintas prote\'inas seleccionadas de una base de datos.\\
-
-Luego buscaremos su respectivos ort\'ologos con el que nos ayudar\'a a realizar un \'analisis filogen\'etico de LASP-1 y observar el origen de esta prote\'ina.\\
+Para el an\'alisis filogen\'etico buscaremos sus respectivos ort\'ologos que nos ayudar\'an a encontrar el origen de estas prote\'inas.\\
 
 
 
 
 \section{Descripci\'on del proyecto}
-Al realizar una investigaci\'on en distintas \'areas muchas veces el limitante  es el financiamiento,  para ayudar quitar costos hemos optado en este proyecto por crear un software que utiliza recursos gratuitos como librer\'ias de python para la parte bioinform\'atica en las que se incluir\'an : biopython, biopandas, PyBioMed y para el GUI utilizaremos Tkinter.\\
-Otro factor que puede ser limitante es el hardware disponibles, por lo que en lugar de descargar las bases de datos, realizaremos consultas a las base de datos en l\'inea mediante el programa.\\
+
+Para este proyecto se toma en cuenta un estudio realizado que est\'a mencionado en la bibliograf\'ia. El estudio realiza el siguiente an\'alisis:
+\begin{itemize}
+\item Para encontrar las prote\'inas que interactuan con LASP-1, se recoge informaci\'on de prote\'inas humanas en distintas base de datos. Una vez encontradas las prote\'inas se descartan las prote\'inas que no son validadas experimentalmente.
+\item Luego se eval\'ua la clase de proteína de los interactuadores LASP-1 utilizando el sistema de clasificación PANTHER.
+Se realiza la anotaci\'on de la funci\'on g\'enica de los interactuadores LASP-1 con el an\'alisis GO.
+\item Las rutas en las que los interactores LASP-1 est\'an involucrados son evaluadas por la ruta KEGG y la ruta PANTHER, se construye la red de interacci\'on que contiene nodos correspondientes a LASP-1 con sus prote\'inas interactuantes y se integra a\'un m\'as la informaci\'on de interacci\'on de interactuadores LASP-1 con sus rutas asociadas.
+\item Como se sabe de la sobreexpresi\'on de LASP-1 en HCC, y se asocia con infección por VHB en pacientes con CHC, se investig\'o si los interactuadores LASP-1 también están asociados con CHC relacionado con VHB.
+\item Basado en el an\'alisis de perfiles de expresi\'on g\'enica de GSE14520, se encontr\'o que el cambio en LASP-1 fue mayor de 2.0 veces con un P-valve $<0.05$ en tejidos HBV-HCC en comparación con tejidos no HCC como se muestra en la Figura 1. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{imagenes/figura1.jpg}
+    \caption{La expresi\'on relativa de los interactuadores LASP-1 con un cambio de pliegue de aproximadamente 2 y $P <0.05$}
+    \label{fig:tabla}
+\end{figure}
+
+\item Entre estos genes, solo FANCC esta regulado negativamente en el HCC relacionado con el VHB, y los niveles de expresi\'on de otros 28 genes aumentaron en las c\'elulas enfermas.
+
+\end{itemize}
+Escogeremos las siguientes prote\'inas de las 28 que aumentaron su expresi\'on, estas ser\'an:
+\begin{itemize}
+\item LASP-1
+\item ZYX
+\item HSPB1
+\item SFN
+\item HAX1
+\item SUMO2
+\item ILK
+\end{itemize}
+Al realizar una investigaci\'on en distintas \'areas muchas veces el limitante  es el financiamiento,  para ayudar quitar costos hemos optado en este proyecto por crear un software que utiliza recursos gratuitos como librer\'ias de python para la parte bioinform\'atica en las que se incluir\'an : biopython, biopandas y para el GUI utilizaremos Tkinter.\\
+Otro factor que puede ser limitante es el hardware disponible, por lo que en lugar de descargar las bases de datos, realizaremos consultas a las base de datos en l\'inea mediante el programa.\\
 
 Las herramientas que ser\'an implementadas en el software (GUI) ser\'an: 
 \begin{itemize}
- \item Alineamiento de secuencias. 
+ \item Alineamiento global de secuencias. 
+ \item Alineamiento local de secuencias. 
  \item Alineamiento m\'ultiple de secuencias.
- \item Algoritmos de b\'usqueda de secuencias similares en Base de datos.
- \item C\'alculo de descriptores interacc\'ion.
- \item An\'alisis filogen\'etico.
+ \item Algoritmos de b\'usqueda de secuencias en Base de datos.
+ \item Algoritmo BLASTp.
+ \item Algotirmo para el an\'alisis filogen\'etico.
 \end{itemize}
 
   
-Se incluir\'an distintos algoritmos de programaci\'on dinamica: como el alineamiento de secuencias usando una matriz BLOSUM62, Algoritmo Blast para la b\'usqueda de secuencias similares, Algoritmo CLUSTALW, Algoritmo para calcular descriptores de interacci\'on y Algoritmo UPGMA que se encuentran en las fuentes citadas en la bibliograf\'ia.  
+Se incluir\'an distintos algoritmos de programaci\'on dinamica: como los algoritmos de alineamiento de secuencias usando una matriz BLOSUM62 (puede ser cambiada), Algoritmo Blast para la b\'usqueda de secuencias similares en una base de datos, Algoritmo CLUSTALW para el alinemaiento m\'ultiple.  
 
 Se entregar\'an los avances de acuerdo al siguiente cronograma:\\
 
@@ -97,17 +129,16 @@ Aporte personal de cada integrante:\\
 \begin{itemize}
 \item Fabio Coronado:
       \begin{itemize}
-      \item An\'alisis de los datos.
-       \item An\'alisis filogen\'etico.
-       \item Algoritmos de b\'usqueda de secuencias similares en Base de datos.
-       \item C\'alculo de descriptores interacc\'ion.
+    
+      \item An\'alisis filogen\'etico.
+      \item Algoritmos de b\'usqueda de secuencias en Base de datos.
+      \item Alineamiento de secuencias. 
       \end{itemize}
 \item Rodrigo Paz:
       \begin{itemize}
       \item Implementaci\'on del GUI en Tkinter.
-      \item Algoritmos de b\'usqueda de secuencias similares en Base de datos.
+      \item Algoritmo BLASTp.
       \item Alineamiento m\'ultiple de secuencias.
-      \item Alineamiento de secuencias. 
       \end{itemize}
 
 \end{itemize}
@@ -119,9 +150,10 @@ Aporte personal de cada integrante:\\
 
 En el proyecto se implement\'ran distintos algoritmos que tienen un costo computacional adecuado para el an\'alisis de una gran cantidad de datos.\\
 
-Algunos algoritmos que usaremos:\\
+Algunos algoritmo ya implementados para esta presentaci\'on:\\
+\\
 
-\textbf{Algoritmo para el alineamiento de secuencias(Needleman-Wunsch):}
+\textbf{Algoritmo de Needleman-Wunsch:}
 \footnotesize
 \begin{lstlisting}[frame=single]
 
@@ -155,6 +187,39 @@ else : return 3
 else :
 if v2 > v3: return 2
 else : return 3
+
+\end{lstlisting}
+\normalsize
+\textbf{Algoritmo de Smith-Waterman:}
+\footnotesize
+\begin{lstlisting}[frame=single]
+
+def smith_Waterman (seq1, seq2, sm, g):
+S = [[0]]
+T = [[0]]
+maxscore = 0
+for j in range(1, len (seq2)+1):
+  S[0].append(0)
+  T[0].append(0)
+for i in range(1, len (seq1)+1):
+  S.append([0])
+  T.append([0])
+for i in range(0, len (seq1)):
+  for j in range( len (seq2)):
+     s1 = S[i][j] + 
+        score_pos(seq1[i], seq2[j], sm, g)
+     s2 = S[i][j+1] + g
+     s3 = S[i+1][j] + g
+     b = max(s1, s2, s3)
+     if b <= 0:
+       S[i+1].append(0)
+       T[i+1].append(0)
+     else:
+       S[i+1].append(b)
+       T[i+1].append(max3t(s1, s2, s3))
+       if b > maxscore:
+          maxscore = b
+return (S, T, maxscore)
 
 \end{lstlisting}
 \normalsize
@@ -221,113 +286,35 @@ print (alin[1:3,5:12])
 \end{lstlisting}	
 \normalsize
 
-\textbf{Algoritmos para la b\'usqueda de secuencias similares:}\\
+\textbf{Algoritmo para usar Blastp:}\\
 \scriptsize
 \begin{lstlisting}[frame=single]
-def align_query (query, ls, sm, g):
-bestScore = -1
-bestSeq = None
-bestAl = None
-for seq in ls:
-al = smith_Waterman(query, seq, sm, g)
-i f al[2] > bestScore:
-bestScore = al[2]
-bestSeq = seq
-bestAl = al
-bestAlin = recover_align_local(bestAl[0], 
-bestAl[1], query, bestSeq)
-return bestAlin , bestScore
+from Bio.Blast import NCBIWWW
+from Bio.Blast import NCBIXML
+from Bio import SeqIO
+import re
+#guarda un archivo xml
+def Blast(archivofasta, direccion
+                       ,nombrearchivo):
+    
+record = SeqIO.read(open(archivofasta),
+                           format="fasta")
+
+result_handle = NCBIWWW.qblast("blastp",
+                 "nr", record.format("fasta"))
+save_file = open( direccion+"/"+
+                    nombrearchivo+".xml", "w")
+save_file.write(result_handle.read())
+save_file.close()
+result_handle.close()
+
 \end{lstlisting}	
-\begin{lstlisting}[frame=single]
-def read_database (filename):
-f = open (filename)
-db = []
-for line in f:
-db.append(line.rstrip())
-f.close()
-return db
-\end{lstlisting}
-\begin{lstlisting}[frame=single]
-#query es la consulta
-def build_map (query, w):
-res = {}
-for i in range( len (query)-w+1):
-subseq = query[i:i+w]
-i f subseq in res:
-res[subseq].append(i)
-e l s e :
-res[subseq] = [i]
-return res
-\end{lstlisting}
-
-
-\begin{lstlisting}[frame=single]
-def extends_hit (seq, hit, query, w):
-stq, sts = hit[0], hit[1]
-## move forward
-matfw = 0
-k=0
-bestk = 0
-while 2*matfw >= k and 
-stq+w+k < len (query) and sts+w+k < len (seq):
-i f query[stq+w+k] == seq[sts+w+k]:
-matfw+=1
-bestk = k+1
-k += 1
-size = w + bestk
-## move backwards
-k = 0
-matbw = 0
-bestk = 0
-while 2*matbw >= k and stq > k and sts > k:
-i f query[stq-k-1] == seq[sts-k-1]:
-matbw+=1
-bestk = k+1
-k+=1
-size += bestk
-return (stq-bestk,sts-bestk,size,w+matfw+matbw)
-\end{lstlisting}
-
-\begin{lstlisting}[frame=single]
-def hit_best_score(seq, query, m, w):
-hits = get_hits(seq, m, w)
-bestScore = -1.0
-best = ()
-for h in hits:
-ext = extends_hit(seq, h, query, w)
-score = ext[3]
-i f score > bestScore or (score== bestScore
- and ext[2] < best[2]):
-bestScore = score
-best = ext
-return best
-\end{lstlisting}
-
-\begin{lstlisting}[frame=single]
-#Retornando el mejor alineamiento
-def best_alignment (db, query, w):
-m = build_map(query, w)
-bestScore = -1.0
-res = (0,0,0,0,0)
-for k in range(0, len (db)):
-bestSeq = hit_best_score(db[k], query, m, w)
-i f bestSeq != ():
-score = bestSeq[3]
-i f score > bestScore or (score== bestScore
- and bestSeq[2]< res[2]):
-bestScore = score
-res = bestSeq[0], bestSeq[1], bestSeq[2],
- bestSeq[3],k
-if bestScore < 0: return ()
-else : return res
-\end{lstlisting}
 
 \normalsize
 \section{Resultados}
 \begin{itemize}
-	
-	\item  Esperamos encontrar las prote\'inas que interact\'uan con LASP-1.    
-    
+	\item Esperamos encontrar el origen evolutivo de las proteinas escogidas.
+	    
     \item Adem\'as esperamos demostrar con el \'arbol filogen\'etico el origen de LASP-1, ya sabemos de antemano que algunos an\'alisis indican que puede tener origen en la evoluci\'on de invertebrados a vertebrados.	
     
 \end{itemize}
@@ -336,6 +323,7 @@ else : return res
 
 \begin{itemize}
 \item En un futuro se podr\'ia implementar mas funcionalidades el software como: Modelamiento de proteinas con PyMol, Algoritmos ocultos de Markov, Motif Discovery, etc.
+\item Conocer el origen evolutivo de estas prote\'inas nos permitir\'a estar m\'as cerca de encontrar el origen de  distintos tipo de c\'ancer, esto tal vez ayudar\'a a encontrar tratamientos m\'as efectivos.
 \item Con el pasar del tiempo se descubren diferentes prote\'inas que interact\'uan con carcinomas, encontrar las prote\'inas correctas mejorar\'a el diagn\'ostico de los distintos tipos de c\'ancer.
 \item Al ser una herramienta que incluye librer\'ias libres permite ahorrar costos en la investigaci\'on.  
 
@@ -343,6 +331,14 @@ else : return res
 
 
 \begin{thebibliography}{X}
+
+	\bibitem{LaTeX}
+	Kong Fan-Yun, Zhu Ting, Li Nan, Cai Yun-Fei,Zhou Kai,Wei Xiao, Kou Yan-Bo, You Hong-Juan, Zheng   
+	Kui-Yang,Tang Ren-Xian\\
+\newblock {\em  Analysis of the proteins interacting with LASP-1 and their association with HBV-related hepatocellular carcinoma},
+\newblock 03 March 2017,\\
+\url{https://www.nature.com/articles/srep44017}
+
 	\bibitem{LaTeX}
 	Alan D. Moore.\\
 \newblock {\em  Python GUI Programming with Tkinter},
@@ -360,15 +356,7 @@ else : return res
 \newblock {\em   Bioinformatics with Python Cookbook - Second Edition},
 \newblock 2018
 
-	\bibitem{LaTeX}
-   Zhi-Jiang Yao ,Jie Dong\\
-\newblock {\em   http://projects.scbdd.com/pybiomed.html},
-\newblock 2017
 
-	\bibitem{LaTeX}
-Fan-Yun Kong, Ting Zhu, Nan Li, Yun-Fei Cai, Kai Zhou, Xiao Wei, Yan-Bo Kou, Hong-Juan You, Kui-Yang Zheng y Ren-Xian Tang\\
-\newblock {\em   Bioinformatics analysis of the proteins interacting with LASP-1 and their association with HBV-related hepatocellular carcinoma},
-\newblock 2017
 	
 \end{thebibliography}
 
