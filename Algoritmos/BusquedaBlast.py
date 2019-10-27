@@ -81,8 +81,8 @@ def Organismos(archivoxml,cantidad):
         print(str(i)+": "+s)
         i=i+1
     
-#Blast("C:/Users/MenTaLisT/Desktop/ejemplo.fasta","C:/Users/MenTaLisT/Desktop","my_blast")
-#InfoArchivoXml("C:/Users/MenTaLisT/Desktop/my_blast.xml")      
-#Numero_Alineamiento("C:/Users/MenTaLisT/Desktop/my_blast.xml",0)
-#Mejores_Alineamientos("C:/Users/MenTaLisT/Desktop/my_blast.xml",20)
-#Organismos("C:/Users/MenTaLisT/Desktop/my_blast.xml",20)
+Blast("/home/mentalist/Desktop/prueba/LASP1MM.fasta","/home/mentalist/Desktop/prueba","my_blast")
+#InfoArchivoXml("/home/mentalist/Desktop/prueba/my_blast.xml")      
+#Numero_Alineamiento("/home/mentalist/Desktop/prueba/my_blast.xml",0)
+#Mejores_Alineamientos("/home/mentalist/Desktop/prueba/my_blast.xml",20)
+#Organismos("/home/mentalist/Desktop/prueba/my_blast.xml",20)

@@ -1,15 +1,16 @@
 #Alineamiento Global
 from Bio.SubsMat import MatrixInfo as matlist
-
-#leyendo la matriz de puntiaciones
+import Utilidades
+#leyendo la matriz de puntuaciones
 def score_pos (c1, c2, sm, g):
     if c1 == "-" or c2=="-":
         return g
     else:
-        if c1 < c2:
-            return sm[c2,c1]
-        else:
+        if (c1,c2) in sm:
             return sm[c1,c2]
+        else:
+            return sm[c2,c1]
+
 
 
 
@@ -71,10 +72,10 @@ def print_mat (mat):
     
 def test_global_alig():
     #cargando matriz de puntuaciones
-    sm = matlist.blosum62 # read_submat_file("C:/Users/MenTaLisT/Desktop/blosum62.mat")
+    sm = matlist.pam250 # read_submat_file("C:/Users/MenTaLisT/Desktop/blosum62.mat")
     #print(sm["W","F"])
-    seq1 = "PHSWG"
-    seq2 = "HGWAG"
+    seq1 = Utilidades.obtener_secuencia("/home/mentalist/Desktop/prueba/LASP1HS.fasta")
+    seq2 = Utilidades.obtener_secuencia("/home/mentalist/Desktop/prueba/LASP1MM.fasta")
 
     res = needleman_Wunsch(seq1, seq2, sm, -8)
     S = res[0]
@@ -89,7 +90,7 @@ def test_global_alig():
     print_mat(T)
     alig = recover_align(T, seq1, seq2)
     print("------------------------------------------------------------------------------")
-    print("Alineamiento optimo con la matriz blosum62:")
+    print("Alineamiento:")
     print (alig[0])
     print (alig[1])
 

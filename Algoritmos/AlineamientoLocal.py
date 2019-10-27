@@ -1,6 +1,6 @@
 #Alineamiento Local
 from Bio.SubsMat import MatrixInfo as matlist
-
+import Utilidades
 def max_mat(mat):
     maxval = mat[0][0]
     maxrow = 0
@@ -13,15 +13,17 @@ def max_mat(mat):
                 maxcol = j
     return (maxrow ,maxcol)
 
-#leyendo la matriz de puntiaciones
+#leyendo la matriz de puntuaciones
 def score_pos (c1, c2, sm, g):
     if c1 == "-" or c2=="-":
         return g
     else:
-        if c1 < c2:
-            return sm[c2,c1]
-        else:
+        if (c1,c2) in sm:
             return sm[c1,c2]
+        else:
+            return sm[c2,c1]
+
+      
 
 #matriz de ratreo: 1 para la diagonal, 2 se usa para vertical y 3 para horizontal
 def max3t (v1, v2, v3):
@@ -83,9 +85,10 @@ def print_mat (mat):
 
 
 def test_local_alig():
-    sm = matlist.blosum62
-    seq1 = "HGWAG"
-    seq2 = "PHSWG"
+    sm = matlist.pam250
+    #print(sm)
+    seq1 = Utilidades.obtener_secuencia("/home/mentalist/Desktop/prueba/LASP1HS.fasta")
+    seq2 = Utilidades.obtener_secuencia("/home/mentalist/Desktop/prueba/LASP1BM.fasta")
     res = smith_Waterman(seq1, seq2, sm, -8)
     S = res[0]
     T = res[1]

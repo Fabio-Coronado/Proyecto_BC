@@ -26,7 +26,7 @@ def Busqueda(basededatos, termino, tipo, maximo):
         record = list(SeqIO.parse(r, tipo)) 
         lista[i]= [IDs[i], ">"+record[0].description, str(record[0].seq) ]
         r.close()
-        print(i,lista[i])
+        print(i,lista[i][0]+ " "+lista[i][1])
 
     #print(lista)
  
@@ -44,20 +44,19 @@ def ObtenerSecuencia ( listado , posicion ,  guardar = "No" , nombrearchivo= Non
        f = open(direccion+"/"+nombrearchivo+"."+tipo,"w")
        f.write(descripcion+"\n")       
        f.write(secuencia)
-       f.close()
        print("-----------------------------------------------------------------------------")
        print("Se guardo el archivo en "+ direccion+"/"+nombrearchivo+"."+tipo)
    print("-----------------------------------------------------------------------------")
    print("Retornado la secuencia escogida")
-   return secuencia
+   return f
 
 #inicializacion
 inicializacion("acoronadoh@uni.pe")
 #Busqueda que retorna la descripcion fasta de los archivos
-resultados = Busqueda("protein","LASP1 Homo sapiens", "fasta", 10)
+resultados = Busqueda("protein","LASP1 Bombyx mori", "fasta", 10)
+#Bombyx mori
 
+#Obtener secuencia o guardar en formato fasta
+secuencia = ObtenerSecuencia(resultados,0,"Si","LASP1BM","/home/mentalist/Desktop/prueba","fasta")
 
-#Obtener secuencia o guardar en formato fasta windows
-secuencia = ObtenerSecuencia(resultados,3,"Si","ejemplo","C:/Users/MenTaLisT/Desktop","fasta")
-
-print(secuencia)
+#print(secuencia)
