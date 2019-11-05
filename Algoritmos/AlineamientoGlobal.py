@@ -75,7 +75,7 @@ def test_global_alig():
     sm = matlist.pam250 # read_submat_file("C:/Users/MenTaLisT/Desktop/blosum62.mat")
     #print(sm["W","F"])
     seq1 = Utilidades.obtener_secuencia("/home/mentalist/Desktop/prueba/LASP1HS.fasta")
-    seq2 = Utilidades.obtener_secuencia("/home/mentalist/Desktop/prueba/LASP1MM.fasta")
+    seq2 = Utilidades.obtener_secuencia("/home/mentalist/Desktop/prueba/LASP1MS.fasta")
 
     res = needleman_Wunsch(seq1, seq2, sm, -8)
     S = res[0]

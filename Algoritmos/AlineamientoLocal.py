@@ -85,10 +85,10 @@ def print_mat (mat):
 
 
 def test_local_alig():
-    sm = matlist.pam250
+    sm = matlist.blosum62
     #print(sm)
     seq1 = Utilidades.obtener_secuencia("/home/mentalist/Desktop/prueba/LASP1HS.fasta")
-    seq2 = Utilidades.obtener_secuencia("/home/mentalist/Desktop/prueba/LASP1BM.fasta")
+    seq2 = Utilidades.obtener_secuencia("/home/mentalist/Desktop/prueba/LASP1MS.fasta")
     res = smith_Waterman(seq1, seq2, sm, -8)
     S = res[0]
     T = res[1]

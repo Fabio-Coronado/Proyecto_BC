@@ -57,6 +57,6 @@ resultados = Busqueda("protein","LASP1 Bombyx mori", "fasta", 10)
 #Bombyx mori
 
 #Obtener secuencia o guardar en formato fasta
-secuencia = ObtenerSecuencia(resultados,0,"Si","LASP1BM","/home/mentalist/Desktop/prueba","fasta")
+secuencia = ObtenerSecuencia(resultados,1,"Si","LASP1BM","/home/mentalist/Desktop/prueba","fasta")
 
 #print(secuencia)
