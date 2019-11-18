@@ -19,12 +19,12 @@ def clustal(archivo,tipo,matriz):
 #juntar_secuencias("/home/mentalist/Desktop/prueba","fasta","/home/mentalist/Desktop/prueba/juntar/resultado.fasta" )
 
 
-def test():
-    alin2 = AlignIO.read("/home/mentalist/Desktop/prueba/juntar/resultado.aln", "clustal")
+def test(): # imprime alineammientos
+    alin2 = AlignIO.read("/home/mentalist/Desktop/prueba/probando.aln", "clustal")
     print("Size:", alin2. get_alignment_length())
     for record in alin2:
         print(record.id)
         print(record.seq)
 
-#clustal("/home/mentalist/Desktop/prueba/juntar/resultado.fasta", "protein" , "BLOSUM")
-test()
+#clustal("/home/mentalist/Desktop/prueba/probando.fasta", "protein" , "BLOSUM")
+#test()

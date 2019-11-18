@@ -10,6 +10,22 @@ def inicializacion(correo):
 #print(record['DbList']) #base de datos
 # bases de datos nucleotide  protein
 
+def BusquedaIds(listaid,archivo):
+    
+    x = len(listaid)
+    #abrir archivo para escritura
+    f = open(archivo,"w")
+    for i in range (x):
+        r = Entrez.esearch("protein",str(listaid[i]),retmax = 1)
+        records = Entrez.read(r)
+        ID = records['IdList']
+        resultado = Entrez.efetch("protein",id = ID[0], rettype = "fasta")
+        record = list(SeqIO.parse(resultado, "fasta")) 
+        f.write(">"+record[0].description+"\n")
+        f.write(str(record[0].seq)+"\n")
+    f.close()
+
+
 def Busqueda(basededatos, termino, tipo, maximo):
     resultados = Entrez.esearch(basededatos,termino,retmax = maximo)
     records = Entrez.read(resultados)
@@ -53,10 +69,10 @@ def ObtenerSecuencia ( listado , posicion ,  guardar = "No" , nombrearchivo= Non
 #inicializacion
 inicializacion("acoronadoh@uni.pe")
 #Busqueda que retorna la descripcion fasta de los archivos
-resultados = Busqueda("protein","LASP1 Bombyx mori", "fasta", 10)
+#resultados = Busqueda("protein","LASP Bactrocera latifrons", "fasta", 10)
 #Bombyx mori
 
 #Obtener secuencia o guardar en formato fasta
-secuencia = ObtenerSecuencia(resultados,1,"Si","LASP1BM","/home/mentalist/Desktop/prueba","fasta")
+#secuencia = ObtenerSecuencia(resultados,5,"Si","LASPBL","/home/mentalist/Desktop/prueba","fasta")
 
 #print(secuencia)
