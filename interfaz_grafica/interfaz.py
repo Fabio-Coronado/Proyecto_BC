@@ -10,7 +10,7 @@ try:  # Python 2
 except ImportError:  # Python 3
     import tkinter as tk
     import tkinter.ttk as ttk
-    import tkFileDialog as filedialog
+    import tkinter.filedialog as filedialog
 
 def clearSeq():
 		input_text.delete('0.0', tk.END)
@@ -20,21 +20,21 @@ def setSequence(text):
 def loadFasta():
     fileObj = filedialog.askopenfile( mode='rU',title='Choose a FASTA file')
     if fileObj:
-		codon_list.insert(tk.END, fileObj.name)
-		from Bio import SeqIO
-		for entry in SeqIO.parse(fileObj, 'fasta'):
-			setSequence(entry.seq)
-			break
-		fileObj.close()
+        codon_list.insert(tk.END, fileObj.name)
+        from Bio import SeqIO
+        for entry in SeqIO.parse(fileObj, 'fasta'):
+            setSequence(entry.seq)
+            break
+        fileObj.close()
 def loadGenBank():
     fileObj = filedialog.askopenfile( mode='rU',title='Choose a FASTA file')
     if fileObj:
-		codon_list.insert(tk.END, fileObj.name)
-		from Bio import SeqIO
-		for entry in SeqIO.parse(fileObj, 'gb'):
-			setSequence(entry.seq)
-			break
-		fileObj.close()
+        codon_list.insert(tk.END, fileObj.name)
+        from Bio import SeqIO
+        for entry in SeqIO.parse(fileObj, 'gb'):
+            setSequence(entry.seq)
+            break
+        fileObj.close()
 a = []
 def click1(x): 
     z = filedialog.askopenfilename(initialdir = "~",title = "Seleccionar archivo", filetypes = ( ("Fasta files", "*.fasta"), ("GenBank files", "*.gbk") ) )
