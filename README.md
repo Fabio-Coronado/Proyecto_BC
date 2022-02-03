@@ -1,1 +1,2 @@
-# Proyecto_BC
+# Proyecto de Biología Computacional
+Algoritmos implementados de biologia computacional
